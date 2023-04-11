@@ -1,8 +1,13 @@
 import { SafeAreaView, Text, View, Image, StyleSheet } from "react-native"
 import { useRouter, Stack } from "expo-router"
 import { COLORS, FONTS, IMAGES, SIZES } from "../constants"
-import { FontAwesome } from '@expo/vector-icons'
+import { AntDesign } from '@expo/vector-icons'
+import { FlatList, ScrollView } from "react-native-gesture-handler"
+import Tag from "../components/Tag/Tag"
 const Home = () => {
+  const tags = [
+    'All', 'Bookmarked', 'Work', 'Daily', 'Study'
+  ]
   return(
     <SafeAreaView style={{backgroundColor: COLORS.dtPrimary, minHeight: "100%"}}>
       <Stack.Screen 
@@ -11,53 +16,64 @@ const Home = () => {
               backgroundColor: COLORS.dtPrimary,
             },
             headerShadowVisible: false,
-            headerTitle: "",
+            headerTitle: "Notesbook",
             statusBarColor: COLORS.dtPrimary,
             statusBarStyle: "light",
             headerTintColor: COLORS.dtPrimary,
-            headerLeft: () => ( <UserMiniProfile />),
-            headerRight: () => (
-              <View>
-                <Text></Text>
+            headerTitleStyle: {color: "white", fontFamily: FONTS.regular, fontSize: SIZES.xl},
+            headerTitleAlign: "center",
+            headerRight: () => (<AntDesign name="plus" size={24} color="white" />),
+            headerLeft: () => (
+              <View style={userProfileStyles.usernameContainer}>
+                <Text style={userProfileStyles.username}>JT</Text>
               </View>
             )
           }}
           
       />
-      <View >
-        <Text>This is joshuas first react native app so please do fuckinfg work</Text>
-        <FontAwesome name="user-circle" size={24} color="gray" />
-      </View>
+      <ScrollView>
+        <View style={styles.container}>
+          <Text style={styles.headerText1}>My</Text>
+          <Text style={styles.headerText2}>Notes</Text>
+          <FlatList data={tags} renderItem={({item}) => <Tag tag={item} /> }  horizontal={true} style={{marginTop: 10}}  />
+        </View>
+      </ScrollView>
     </SafeAreaView>
   )
 }
 
-const UserMiniProfile = () => {
-  return(
-    <View>
-      <View style={userProfileStyles.flexContainer}>
-        <Image style={userProfileStyles.profileImage} source={IMAGES.profile} />
-        <Text style={[userProfileStyles.username, {color: COLORS.dtTextSecondary, marginLeft: 10}]}>morning, </Text>
-        <Text style={userProfileStyles.username}>Joshua</Text>
-      </View>
-    </View>
-  )
-}
 
 const userProfileStyles = StyleSheet.create({
-  profileImage: {
-    height: 30,
+  usernameContainer: {
+    backgroundColor: COLORS.dtCTA,
     width: 30,
-    borderRadius: 20
-  },
-  flexContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    fontFamily: FONTS.medium
+    height: 30,
+    borderRadius: 15,
+    justifyContent: "center",
+    alignItems: "center"
   },
   username: {
+    fontFamily: FONTS.bold,
+    fontSize: SIZES.md
+  }
+})
+
+const styles = StyleSheet.create({
+  container: {
+    marginHorizontal: 15,
+    marginTop: 5,
+    borderTopWidth: 2,
+    borderColor: COLORS.dtSecondary
+  },
+  headerText1: {
+    fontSize: 80,
     color: COLORS.dtTextPrimary,
-    // fontSize: SIZES.sm
+    fontFamily: FONTS.medium
+  },
+  headerText2: {
+    fontSize: 80,
+    color: COLORS.dtTextPrimary,
+    fontFamily: FONTS.medium
   }
 })
 
