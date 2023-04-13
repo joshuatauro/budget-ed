@@ -33,6 +33,15 @@ const Home = () => {
     }
   ]
 
+  const aboveFlat = () => {
+    return(
+      <View>
+        <Text style={styles.headerText1}>My</Text>
+        <Text style={styles.headerText2}>Notes</Text>
+      </View>
+    )
+  }
+
   return(
     <SafeAreaView style={{backgroundColor: COLORS.dtPrimary, minHeight: "100%"}}>
       <Stack.Screen 
@@ -56,17 +65,11 @@ const Home = () => {
           }}
           
       />
-      <ScrollView style={{flex: 1}}>
         <View style={styles.container}>
-          <Text style={styles.headerText1}>My</Text>
-          <Text style={styles.headerText2}>Notes</Text>
-          {/* <FlatList data={tags} renderItem={({item}) => <Tag tag={item} /> }  horizontal={true} style={{marginTop: 10, marginBottom: 40}}  /> */}
-          <View style={styles.notesContainer}>
-            <FlatList data={notes} renderItem={({item}) => <Note title={item.title} body={item.body} date={item.date} />} />
-          </View>
+          <FlatList data={notes} renderItem={({item}) => <Note title={item.title} body={item.body} date={item.date} />} ListHeaderComponent={aboveFlat} />
         </View>
+
         
-      </ScrollView>
     </SafeAreaView>
   )
 }
@@ -89,14 +92,12 @@ const userProfileStyles = StyleSheet.create({
 
 const styles = StyleSheet.create({
   container: {
-    marginLeft: 15,
+    marginHorizontal: 15,
     marginTop: 5,
     borderTopWidth: 2,
     borderColor: COLORS.dtSecondary
   },
-  notesContainer: {
-    marginRight: 15
-  },
+
   headerText1: {
     fontSize: 80,
     color: COLORS.dtTextPrimary,

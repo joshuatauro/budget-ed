@@ -3,6 +3,9 @@ import { COLORS, FONTS, SIZES } from '../../constants'
 import { AntDesign } from '@expo/vector-icons'
 
 const Note = ({date, title, body}) => {
+  const tags = [
+    'React', 'C++'
+  ]
   return(
     <View style={styles.container}>
       <View style={{flexDirection: "row", alignItems: "center"}}>
@@ -13,6 +16,17 @@ const Note = ({date, title, body}) => {
         {title}
       </Text>
       <Text numberOfLines={6} style={styles.noteBody}>{body}</Text>
+      <View style={styles.tagsContainer}>
+      {
+        tags.map(it => {
+          return(
+            <View style={styles.tag}>
+              <Text style={styles.tagText}>#{it}</Text>
+            </View>
+          )
+        })
+      }
+      </View>
     </View>
   )
 }
@@ -46,6 +60,20 @@ const styles = StyleSheet.create({
     flex: 1,
     // flexWrap: "wrap",
     flexShrink: 1
+  },
+  tagsContainer: {
+    flexDirection: "row",
+    marginTop: 10   
+  },
+  tag: {
+    backgroundColor: COLORS.dtCTA,
+    marginRight: 5,
+    borderRadius: 5,
+    paddingHorizontal: 3,
+    paddingVertical: 2
+  },
+  tagText: {
+    fontSize: SIZES.xs
   }
 })
 
