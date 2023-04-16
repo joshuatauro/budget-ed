@@ -3,5 +3,6 @@ export const COLORS = {
   dtSecondary: "#313131",
   dtTextPrimary: "#fff",
   dtTextSecondary: "#858585",
-  dtCTA: "#AAC6EC"
+  dtCTA: "#3B45F0",
+  dtCTAFade: ""
 }
